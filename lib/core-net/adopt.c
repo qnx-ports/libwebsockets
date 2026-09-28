@@ -72,7 +72,7 @@ lws_create_new_server_wsi(struct lws_vhost *vhost, int fixed_tsi, int group,
 	lws_wsi_fault_timedclose(new_wsi);
 
 	__lws_lc_tag(vhost->context, &vhost->context->lcg[group],
-			&new_wsi->lc, "%s|%s", vhost->name, desc);
+			&new_wsi->lc, "%s|%s", vhost->name, desc ? desc : "");
 
 	new_wsi->wsistate |= LWSIFR_SERVER;
 	new_wsi->tsi = (char)n;
@@ -512,6 +512,7 @@ lws_adopt_descriptor_vhost(struct lws_vhost *vh, lws_adoption_type type,
 	info.fd = fd;
 	info.vh_prot_name = vh_prot_name;
 	info.parent = parent;
+	info.fi_wsi_name = "";
 
 	return lws_adopt_descriptor_vhost_via_info(&info);
 }

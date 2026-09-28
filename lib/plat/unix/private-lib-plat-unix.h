@@ -64,16 +64,7 @@
 #endif
 #if defined(__QNX__)
 	#include <gulliver.h>
-	#if defined(__LITTLEENDIAN__)
-		#define BYTE_ORDER __LITTLEENDIAN__
-		#define LITTLE_ENDIAN __LITTLEENDIAN__
-		#define BIG_ENDIAN 4321  /* to show byte order (taken from gcc); for suppres warning that BIG_ENDIAN is not defined. */
-	#endif
-	#if defined(__BIGENDIAN__)
-		#define BYTE_ORDER __BIGENDIAN__
-		#define LITTLE_ENDIAN 1234  /* to show byte order (taken from gcc); for suppres warning that LITTLE_ENDIAN is not defined. */
-		#define BIG_ENDIAN __BIGENDIAN__
-	#endif
+	#include <sys/param.h>
 #endif
 
 #if defined(LWS_HAVE_PTHREAD_H)
@@ -140,13 +131,6 @@ typedef pthread_mutex_t lws_mutex_t;
 
 #else
 #include <sys/syslog.h>
-#endif
-
-#ifdef __QNX__
-# include "netinet/tcp_var.h"
-# define TCP_KEEPINTVL TCPCTL_KEEPINTVL
-# define TCP_KEEPIDLE  TCPCTL_KEEPIDLE
-# define TCP_KEEPCNT   TCPCTL_KEEPCNT
 #endif
 
 #if defined (__sun)
